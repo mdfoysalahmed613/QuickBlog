@@ -16,3 +16,18 @@ export async function GET(request: Request, {params}:{params:{id:string}}) {
     });
   }
 }
+
+export const DELETE = async (request: Request, {params}:{params:{id:string}}) => {
+  try {
+    await dbConnect();
+    const {id} = await params;
+    await Blog.findByIdAndDelete(id);
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Error deleting blog:", error);
+    return NextResponse.json({
+      success: false,
+      message: "Failed to delete blog",
+    });
+  }
+}

@@ -1,4 +1,4 @@
-import mongoose from 'mongoose';
+import mongoose, { model, models } from 'mongoose';
 
 export interface IBlog {
   _id?: string;
@@ -9,6 +9,7 @@ export interface IBlog {
   publishedAt?: Date;
   createdAt?: Date;
   image?: string;
+  imageId?: string; // ImageKit file ID for potential deletion
   category?: string;
 }
 
@@ -20,9 +21,10 @@ const blogSchema = new mongoose.Schema({
   publishedAt: { type: Date },
   createdAt: { type: Date, default: Date.now },
   image: { type: String },
+  imageId: { type: String }, // Store ImageKit file ID
   category: { type: String }
 });
 
-const Blog = mongoose.model('Blog', blogSchema);
+const Blog =  models?.Blog || model<IBlog>("Blog", blogSchema);
 
 export default Blog;
