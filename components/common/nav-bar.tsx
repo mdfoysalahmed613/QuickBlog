@@ -3,11 +3,9 @@ import React from 'react'
 import { Button } from '../ui/button'
 import { redirect, usePathname } from 'next/navigation'
 import Image from 'next/image'
-import { signOut, useSession } from 'next-auth/react'
 
 const NavBar = () => {
    const pathName = usePathname();
-   const {data:session,status} = useSession();
    const isAdminRoute = pathName.startsWith('/admin');
    const noNavPath = ["/login","/register"].includes(pathName);
    if (isAdminRoute || noNavPath) {
@@ -27,19 +25,9 @@ const NavBar = () => {
             <h1 className="font-bold text-2xl">QuickBlog</h1>
          </div>
          <div>
-            {status === "authenticated" ? <div className='flex gap-4 items-center'>
-               <Button onClick={() => redirect("/admin")}>
-                  Admin
-               </Button>
-               <Button variant='destructive' onClick={() => signOut({ redirect: false })}>
-                  Logout
-               </Button>
-            </div> : <div className='flex gap-4'>
-               <Button onClick={() => redirect("/login")}>
-                  Login
-               </Button>
-            </div>   
-            }
+            <Button onClick={() => redirect("/admin")}>
+               Admin
+            </Button>
          </div>
       </div>
    )
