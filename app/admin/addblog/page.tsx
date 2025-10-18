@@ -13,18 +13,15 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
-import React, { useState } from 'react'
+import React from 'react'
 import FileUpload from "@/components/ui/fileUpload";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Controller, useForm } from "react-hook-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
 import { blogSchema } from "@/schemas/blogSchema";
-import { fi } from "zod/v4/locales";
 import { Label } from "@/components/ui/label";
-import z from "zod";
-import { title } from "process";
-
+import { z } from "zod";
 const AddBlogPage = () => {
   const form = useForm({
     resolver: zodResolver(blogSchema),
@@ -38,11 +35,13 @@ const AddBlogPage = () => {
     },
   });
   const { formState: { errors } } = form;
-  const onSubmit = async (data: any) => {
+  const onSubmit = async(data: z.infer<typeof blogSchema>) => {
     const blogData = { title: data.title, subTitle: data.subTitle, description: data.description, isPublished: data.isPublished, category: data.category };
     console.log(blogData);
     const formData = new FormData();
-    formData.append("image", data.image);
+    if (data.image) {
+      formData.append("image", data.image);
+    }
     formData.append("blog", JSON.stringify(blogData));
     try {
       const response = await fetch("/api/blogs", {
@@ -78,7 +77,7 @@ const AddBlogPage = () => {
                 <Field>
                   <FieldLabel>Image</FieldLabel>
                   <FileUpload
-                    onFilesChange={(files: any[]) => {
+                    onFilesChange={(files) => {
                       const file = files[0]?.file || files[0];
                       field.onChange(file);
                     }}

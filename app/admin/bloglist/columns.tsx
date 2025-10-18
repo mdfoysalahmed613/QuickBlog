@@ -13,6 +13,7 @@ import {
    AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import Image from "next/image";
 export type Blog = {
    _id: string
    title: string
@@ -51,8 +52,10 @@ export const columns: ColumnDef<Blog>[] = [
       cell: ({ row }) => {
          const image = row.getValue("image") as string
          return image ? (
-            <img
+            <Image
                src={image}
+               width={48}
+               height={48}
                alt={row.getValue("title")}
                className="w-12 h-12 object-cover rounded"
             />

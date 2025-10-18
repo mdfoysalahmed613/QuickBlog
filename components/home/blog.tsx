@@ -7,7 +7,10 @@ const BlogCard = ({ blog }: { blog: IBlog }) => {
    const { title, subTitle, image, category } = blog
    return (
       <div className='max-w-md bg-card rounded-lg shadow-sm overflow-hidden flex flex-col gap-1 hover:scale-105 transition-all'>
-         <Image src={image} width={1280} height={720} alt={title} />
+         <div className='relative'>
+            <Image src={image || '/placeholder.png'} width={1280} height={720} alt={title} />
+         </div>
+
 
          <div className='mx-6 my-6 flex flex-col gap-2'>
             <Badge>{category}</Badge>

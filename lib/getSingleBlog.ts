@@ -1,9 +1,8 @@
+
 const getSingleBlog = async (id: string) => {
+  
   const response = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/${id}`,
-    {
-      cache: "force-cache",
-    }
+    `${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs/${id}`
   );
 
   if (!response.ok) {

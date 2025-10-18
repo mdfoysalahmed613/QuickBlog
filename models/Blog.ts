@@ -5,12 +5,12 @@ export interface IBlog {
   title: string;
   subTitle: string;
   description: string;
-  isPublished?: boolean;
+  isPublished: boolean;
   publishedAt?: Date;
   createdAt?: Date;
-  image?: string;
+  image: string;
   imageId?: string; // ImageKit file ID for potential deletion
-  category?: string;
+  category: string;
 }
 
 const blogSchema = new mongoose.Schema({
