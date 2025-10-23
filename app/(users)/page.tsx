@@ -1,12 +1,12 @@
 import BlogList from "@/components/home/bloglist";
-import Header from "@/components/home/header";
+import HeroSection from "@/components/home/hero-section";
 
 export const dynamic = 'force-dynamic';
 
 export default function Home() {
   return (
     <div>
-      <Header />
+      <HeroSection />
       <BlogList />
     </div>
   );

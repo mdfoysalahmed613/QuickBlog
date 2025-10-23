@@ -1,14 +1,15 @@
 import NavBar from '@/components/common/nav-bar'
 import React from 'react'
 
-const layout = ({ children }:{children: React.ReactNode}) => {
+const layout = ({ children }: { children: React.ReactNode }) => {
   return (
-     <div>
+    <div className="max-w-[1440px] mx-auto px-4 md:px-8 lg:px-12">
+      <header>
         <NavBar />
-        <main className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8">
-          {children}
-        </main>
-      </div>
+      </header>
+      
+      {children}
+    </div>
   )
 }
 

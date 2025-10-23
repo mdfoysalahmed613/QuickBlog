@@ -11,8 +11,9 @@ import {
 import { ClipboardList, FolderPlus, House, MessageCircleMore } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
-import { redirect, usePathname } from "next/navigation"
+import { usePathname } from "next/navigation"
 import React from 'react'
+import favicon from '../../public/favicon.svg'
 const items = [
    {
       title: "Dashboard",
@@ -42,17 +43,15 @@ const AdminSideBar = () => {
          <SidebarHeader>
             <SidebarMenu>
                <SidebarMenuItem>
-                  <div className="flex gap-2 items-center mb-2 mt-1 cursor-pointer" onClick={() => redirect("/")}>
+                  <Link href={"/"} className="flex gap-2 justify-center items-center cursor-pointer">
                      <Image
-                        src="/favicon.svg"
+                        src={favicon}
                         alt="QuickBlog Logo"
-                        width={32}
-                        height={32}
-                        className="w-8 h-8 cursor-pointer"
+                        className="w-8 h-8"
                         priority
                      />
                      <h1 className="font-bold text-2xl">QuickBlog</h1>
-                  </div>
+                  </Link>
                </SidebarMenuItem>
             </SidebarMenu>
          </SidebarHeader>

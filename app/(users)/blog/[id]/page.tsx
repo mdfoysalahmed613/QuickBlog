@@ -13,7 +13,7 @@ const BlogDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
       <h1 className='text-3xl font-bold'>{title}</h1>
       <h2 className='text-2xl font-semibold'>{subTitle}</h2>
       <p>{description}</p>
-      <Image src={image || '/placeholder.png'} width={1280} height={720} alt={title} className='rounded-lg' />
+      <Image src={image} width={1280} height={720} alt={title} className='rounded-lg' />
 
     </div>
   )

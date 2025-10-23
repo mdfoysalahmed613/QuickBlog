@@ -7,7 +7,7 @@ const layout = ({children}:{children: React.ReactNode}) => {
     <div>
       <SidebarProvider>
          <AdminSideBar />
-         <main>
+         <main className='mx-auto'>
           {children}
          </main>
       </SidebarProvider>

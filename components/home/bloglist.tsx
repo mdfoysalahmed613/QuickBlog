@@ -8,10 +8,10 @@ const BlogList = async () => {
   const blogs: IBlog[] = await getAllBlogs()
 
   return (
-    <div className="flex gap-4 sm:gap-8 justify-center items-center py-2 flex-wrap ">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 py-2 ">
       {blogs.map((blog: IBlog) => (
         <Link href={`/blog/${blog._id}`} key={blog._id}>
-          <BlogCard blog={blog} />
+          <BlogCard {...blog} />
         </Link>
       ))}
     </div>
