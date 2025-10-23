@@ -19,24 +19,89 @@ import { Input } from "@/components/ui/input"
 import Link from "next/link"
 import { useSignUp } from "@clerk/nextjs"
 import { useState } from "react"
+import { OTPForm } from "./otp-form"
+import { useRouter } from "next/navigation"
+import { ClerkAPIError } from '@clerk/types'
+import { isClerkAPIResponseError } from '@clerk/nextjs/errors'
 
 export function SignupForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {
   const { isLoaded, signUp, setActive } = useSignUp()
-  const [email, setEmail] = useState("")
+  const [verifying, setVerifying] = useState(false)
+  const [email, setEmail] = useState('')
+  const [code, setCode] = useState('')
+  const [errors, setErrors] = useState<ClerkAPIError[]>()
+  const router = useRouter()
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!isLoaded && !signUp) return null
+
+    try {
+      await signUp.create({
+        emailAddress: email,
+      })
+      await signUp.prepareEmailAddressVerification({ strategy: "email_code" })
+      setVerifying(true)
+    } catch (err) {
+      if (isClerkAPIResponseError(err)) setErrors(err.errors)
+      console.error('Error:', JSON.stringify(err, null, 2))
+    }
+  }
+
+  const handleOTPSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
+    if (!isLoaded && !signUp) return null
+
+    try {
+      const signUpAttempt = await signUp.attemptEmailAddressVerification({ code })
+
+      if (signUpAttempt.status === "complete") {
+        await setActive({
+          session: signUp.createdSessionId,
+          navigate: async ({ session }) => {
+            if (session?.currentTask) {
+              console.log(session?.currentTask)
+              return
+            }
+            router.push('/')
+          },
+        })
+
+      } else {
+        console.error(signUpAttempt)
+      }
+    } catch (err) {
+      if (isClerkAPIResponseError(err)) setErrors(err.errors)
+      console.error('Error:', JSON.stringify(err, null, 2))
+    }
+  }
+  if (verifying) {
+    return (
+      <OTPForm
+        code={code}
+        setCode={setCode}
+        onSubmit={handleOTPSubmit}
+        email={email}
+        errors={errors}
+      />
+    )
+  }
+
+
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
           <CardTitle className="text-xl">Create your account</CardTitle>
           <CardDescription>
-            Signup with your Google or Facebook account.
+            Signup with your Google account.
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form>
+          <form onSubmit={handleSubmit}>
             <FieldGroup>
               <Field>
                 <Button variant="outline" type="button">
@@ -52,10 +117,17 @@ export function SignupForm({
                 <Input
                   id="email"
                   type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   placeholder="m@example.com"
                   required
                 />
               </Field>
+              {errors && (
+                <FieldDescription className="text-center text-red-600 mt-2">
+                  {errors.map((error) => error.longMessage).join(" ")}
+                </FieldDescription>
+              )}
               <Field>
                 <Button type="submit">Continue</Button>
                 <FieldDescription className="text-center">

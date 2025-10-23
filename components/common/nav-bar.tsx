@@ -18,16 +18,18 @@ const NavBar = () => {
          </Link>
          <div>
             <SignedOut>
-               <SignInButton>
-                  <Button variant="outline" className="mr-2">
+               <div className="flex gap-3 items-center">
+               <Button variant='outline' asChild>
+                  <Link href={"/sign-in"}>
                      Sign In
-                  </Button>
-               </SignInButton>
+                  </Link>
+               </Button>
                <Button asChild>
                   <Link href={"/sign-up"}>
                      Sign Up
                   </Link>
-               </Button>
+                  </Button>
+               </div>
             </SignedOut>
             <SignedIn>
                <div className="flex gap-3 items-center">
