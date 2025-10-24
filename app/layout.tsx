@@ -5,6 +5,7 @@ import { Toaster } from "sonner";
 import {
   ClerkProvider,
 } from '@clerk/nextjs'
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -25,16 +26,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const queryClient = new QueryClient();
   return (
-    <ClerkProvider> 
+    
+      <QueryClientProvider client={queryClient}>
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+        ><ClerkProvider>
           <Toaster position="top-center" richColors />
-        <main >{children}</main>
+            <main >{children}</main>
+          </ClerkProvider>
       </body>
-      </html>
-      </ClerkProvider>
+        </html>
+        </QueryClientProvider>
+      
   );
 }
