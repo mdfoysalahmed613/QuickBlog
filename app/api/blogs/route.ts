@@ -7,8 +7,12 @@ import { revalidatePath } from "next/cache";
 export async function GET() {
   try {
     await dbConnect();
-    const blogs = await Blog.find({});
-    return NextResponse.json(blogs);
+    const blogs = await Blog.find({}).lean();
+    return NextResponse.json({
+      success: true,
+      data: blogs,
+      message: "Blogs fetched successfully",
+    });
   } catch (error) {
     console.error("Error fetching blogs:", error);
     return NextResponse.json({
