@@ -59,7 +59,7 @@ export function OTPForm({ code, setCode, onSubmit, onResend, email, errors }: OT
                 Enter the 6-digit code sent to your email.
               </FieldDescription>
               {errors && (
-                <FieldDescription className="text-center text-red-600 mt-2">
+                <FieldDescription className="text-red-600">
                   {errors.map((error) => error.longMessage).join(" ")}
                 </FieldDescription>
               )}

@@ -15,7 +15,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { toast } from "sonner";
 import React from 'react'
 import FileUpload from "@/components/ui/fileUpload";
-import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
+import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Controller, useForm } from "react-hook-form";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { zodResolver } from "@hookform/resolvers/zod"
@@ -73,7 +73,7 @@ const AddBlogPage = () => {
             <Controller
               name="image"
               control={form.control}
-              render={({ field }) => (
+              render={({ field, fieldState }) => (
                 <Field>
                   <FieldLabel>Image</FieldLabel>
                   <FileUpload
@@ -82,67 +82,71 @@ const AddBlogPage = () => {
                       field.onChange(file);
                     }}
                   />
-                  {errors.image && <FieldDescription className="text-red-500">{errors.image.message}</FieldDescription>}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
             <Controller
               name="title"
               control={form.control}
-              render={({ field }) => (
-                <Field>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="title">Title</FieldLabel>
                   <Input
                     id="title"
                     {...field}
                     placeholder="Type here"
                     required
+                    aria-invalid={fieldState.invalid}
                   />
-                  {errors.title && <FieldDescription className="text-red-500">{errors.title.message}</FieldDescription>}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
             <Controller
               name="subTitle"
               control={form.control}
-              render={({ field }) => (
-                <Field>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="subTitle">Subtitle</FieldLabel>
                   <Input
                     id="subTitle"
                     {...field}
                     placeholder="Type here"
                     required
+                    aria-invalid={fieldState.invalid}
                   />
-                  {errors.subTitle && <FieldDescription className="text-red-500">{errors.subTitle.message}</FieldDescription>}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
             <Controller
               name="description"
               control={form.control}
-              render={({ field }) => (
-                <Field>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="description">Description</FieldLabel>
                   <Textarea
                     id="description"
                     {...field}
                     placeholder="Type here"
                     required
+                    aria-invalid={fieldState.invalid}
                   />
-                  {errors.description && <FieldDescription className="text-red-500">{errors.description.message}</FieldDescription>}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />
             <Controller
               name="category"
               control={form.control}
-              render={({ field }) => (
-                <Field>
+              render={({ field, fieldState }) => (
+                <Field data-invalid={fieldState.invalid}>
                   <FieldLabel>Category</FieldLabel>
                   <Select
                     value={field.value || ""}
                     onValueChange={field.onChange}
+                    aria-invalid={fieldState.invalid}
                   >
                     <SelectTrigger className="w-[180px]">
                       <SelectValue placeholder="Select a Category" />
@@ -156,7 +160,7 @@ const AddBlogPage = () => {
                       </SelectGroup>
                     </SelectContent>
                   </Select>
-                  {errors.category && <FieldDescription className="text-red-500">{errors.category.message}</FieldDescription>}
+                  {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
                 </Field>
               )}
             />

@@ -136,12 +136,12 @@ export function LoginForm({
                 />
               </Field>
               {errors && (
-                <FieldDescription className="text-center text-red-600 mt-2">
+                <p className="text-red-600">
                   {errors.map((error) => error.longMessage).join(" ")}
-                </FieldDescription>
+                </p>
               )}
               <Field>
-                <Button type="submit">Login</Button>
+                <Button type="submit">Continue</Button>
                 <FieldDescription className="text-center">
                   Don&apos;t have an account? <Link href="/sign-up">Sign up</Link>
                 </FieldDescription>
