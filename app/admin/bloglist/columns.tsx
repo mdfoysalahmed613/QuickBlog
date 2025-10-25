@@ -1,29 +1,17 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import {
-   AlertDialog,
-   AlertDialogAction,
-   AlertDialogCancel,
-   AlertDialogContent,
-   AlertDialogDescription,
-   AlertDialogFooter,
-   AlertDialogHeader,
-   AlertDialogTitle,
-   AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import {
+   DropdownMenu,
+   DropdownMenuContent,
+   DropdownMenuItem,
+   DropdownMenuLabel,
+   DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
 import Image from "next/image";
-export type Blog = {
-   _id: string
-   title: string
-   subTitle: string
-   description: string
-   category: string
-   isPublished: boolean
-   createdAt: string
-   image?: string
-}
+import { IBlog } from "@/models/Blog";
+import { ArrowUpDown, MoreHorizontal } from "lucide-react";
 const handleDelete = async (id: string) => {
    if (!id) return;
    try {
@@ -45,7 +33,7 @@ const handleDelete = async (id: string) => {
    }
 };
 
-export const columns: ColumnDef<Blog>[] = [
+export const columns: ColumnDef<IBlog>[] = [
    {
       accessorKey: "image",
       header: "Image",
@@ -71,7 +59,7 @@ export const columns: ColumnDef<Blog>[] = [
       header: "Title",
       cell: ({ row }) => {
          const title = row.getValue("title") as string
-         return <div className="font-medium max-w-[200px] truncate">{title}</div>
+         return <div className="font-medium w-[200px] truncate">{title}</div>
       },
    },
    {
@@ -86,7 +74,7 @@ export const columns: ColumnDef<Blog>[] = [
       accessorKey: "isPublished",
       header: "Status",
       cell: ({ row }) => {
-         const isPublished = row.getValue("isPublished") as boolean
+         const isPublished = row.getValue("isPublished")
          return (
             <Badge variant={isPublished ? "default" : "secondary"}>
                {isPublished ? "Published" : "Draft"}
@@ -96,46 +84,43 @@ export const columns: ColumnDef<Blog>[] = [
    },
    {
       accessorKey: "createdAt",
-      header: "Created",
+      header: ({ column }) => {
+         return (
+            <Button variant="ghost" size="sm" onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}>
+               Created
+               <ArrowUpDown className="ml-2 h-4 w-4" />
+            </Button>
+         )
+      },
       cell: ({ row }) => {
          const date = new Date(row.getValue("createdAt"))
-         return <div className="text-sm text-gray-600">
+         return <div className="text-sm text-center text-gray-600">
             {date.toLocaleDateString()}
          </div>
       },
    },
    {
       id: "actions",
-      header: "Actions",
+      enableHiding: false,
       cell: ({ row }) => {
          const blog = row.original
          return (
-            <div className="flex gap-2">
-               <Button variant="outline" size="sm">
-                  Edit
-               </Button>
-               <AlertDialog>
-                  <AlertDialogTrigger asChild>
-                     <Button variant="destructive" size="sm">
-                        Delete
-                     </Button>
-                  </AlertDialogTrigger>
-                  <AlertDialogContent>
-                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
-                        <AlertDialogDescription>
-                           This action cannot be undone. This will permanently delete your
-                           blog and remove it from our servers.
-                        </AlertDialogDescription>
-                     </AlertDialogHeader>
-                     <AlertDialogFooter>
-                        <AlertDialogCancel>Cancel</AlertDialogCancel>
-                        <AlertDialogAction onClick={() => handleDelete(blog._id)}>Delete</AlertDialogAction>
-                     </AlertDialogFooter>
-                  </AlertDialogContent>
-               </AlertDialog>
-               
-            </div>
+            <DropdownMenu>
+               <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="h-8 w-8 p-0">
+                     <span className="sr-only">Open menu</span>
+                     <MoreHorizontal />
+                  </Button>
+               </DropdownMenuTrigger>
+               <DropdownMenuContent align="end">
+                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
+                  <DropdownMenuItem>
+                     {blog.isPublished ? "Unpublish" : "Publish"}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Edit</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleDelete(blog._id)} variant="destructive">Delete</DropdownMenuItem>
+               </DropdownMenuContent>
+            </DropdownMenu>
          )
       },
    },

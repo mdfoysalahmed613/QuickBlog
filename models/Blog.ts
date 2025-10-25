@@ -1,13 +1,13 @@
 import mongoose, { model, models } from 'mongoose';
 
 export interface IBlog {
-  _id?: string;
+  _id: string;
   title: string;
   subTitle: string;
   description: string;
   isPublished: boolean;
-  publishedAt?: Date;
-  createdAt?: Date;
+  publishedAt: Date;
+  createdAt: Date;
   image: string;
   imageId?: string; // ImageKit file ID for potential deletion
   category: string;

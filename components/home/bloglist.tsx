@@ -1,6 +1,6 @@
 import { IBlog } from '@/models/Blog'
 import BlogCard from './blog'
-import getAllBlogs from '@/lib/getAllBlogs'
+import {getAllBlogs} from '@/lib/api'
 import Link from 'next/link'
 
 const BlogList = async () => {

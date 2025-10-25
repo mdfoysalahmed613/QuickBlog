@@ -1,6 +1,5 @@
-import getSingleBlog from '@/lib/getSingleBlog';
+import {getSingleBlog} from '@/lib/api';
 import Image from 'next/image';
-import React from 'react'
 
 export const dynamic = 'force-dynamic';
 

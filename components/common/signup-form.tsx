@@ -17,7 +17,7 @@ import {
 } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import Link from "next/link"
-import { GoogleOneTap, useSignUp } from "@clerk/nextjs"
+import { useSignUp } from "@clerk/nextjs"
 import { useState } from "react"
 import { OTPForm } from "./otp-form"
 import { useRouter } from "next/navigation"
@@ -50,7 +50,7 @@ export function SignupForm({
       .then((res) => {
         console.log(res)
       })
-      .catch((err: any) => {
+      .catch((err) => {
         // See https://clerk.com/docs/guides/development/custom-flows/error-handling
         // for more info on error handling
         console.log(err.errors)

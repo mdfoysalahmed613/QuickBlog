@@ -50,7 +50,7 @@ export function LoginForm({
       .then((res) => {
         console.log(res)
       })
-      .catch((err: any) => {
+      .catch((err) => {
         console.log(err.errors)
         console.error(err, null, 2)
       }) .finally(() => {
