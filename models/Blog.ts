@@ -7,10 +7,11 @@ export interface IBlog {
   description: string;
   isPublished: boolean;
   publishedAt: Date;
-  createdAt: Date;
   image: string;
   imageId?: string; // ImageKit file ID for potential deletion
   category: string;
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
 const blogSchema = new mongoose.Schema({
@@ -19,11 +20,10 @@ const blogSchema = new mongoose.Schema({
   description: { type: String, required: true },
   isPublished: { type: Boolean, default: false },
   publishedAt: { type: Date },
-  createdAt: { type: Date, default: Date.now },
   image: { type: String },
   imageId: { type: String }, // Store ImageKit file ID
   category: { type: String }
-});
+}, { timestamps: true });
 
 const Blog =  models?.Blog || model<IBlog>("Blog", blogSchema);
 

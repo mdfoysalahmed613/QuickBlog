@@ -3,19 +3,52 @@
 import { columns } from "./columns";
 import { DataTable } from "./data-table";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { useQuery } from "@tanstack/react-query";
-import {getAllBlogs} from "@/lib/api";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import {deleteBlog, getAllBlogs, togglePublish} from "@/lib/api";
 import { IBlog } from "@/models/Blog";
 import { Spinner } from "@/components/ui/spinner";
+import { toast } from "sonner";
 
 const BlogListPage = () => {
-
-  const { data: blogs, isPending, isError } = useQuery<IBlog[]>({
+  const queryClient = useQueryClient();
+  const { data: blogs = [], isPending, isError } = useQuery<IBlog[]>({
     queryKey: ['blogs'],
     queryFn: getAllBlogs,
   });
+  // Delete mutation
+  const deleteMutation = useMutation({
+    mutationFn: deleteBlog,
+    onSuccess: () => {
+      // Invalidate and refetch
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+      toast.success("Blog deleted successfully");
+    },
+    onError: (error: Error) => {
+      toast.error("An error occurred: " + error.message);
+    },
+  });
 
-  
+  const handleDelete = (id: string) => {
+    if (!id) return;
+    deleteMutation.mutate(id);
+  }
+
+  const togglePublishMutation = useMutation({
+    mutationFn: ({id, isPublished}: {id: string, isPublished: boolean}) => togglePublish(id, isPublished),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['blogs'] });
+    },
+    onError: (error: Error) => {
+      toast.error("An error occurred: " + error.message);
+    },
+  });
+
+  const handleTogglePublish = (id: string, isPublished: boolean) => {
+    if (!id) return;
+    togglePublishMutation.mutate({ id, isPublished });
+  }
+
   if (isPending) {
     return <Spinner />;
   }
@@ -35,7 +68,10 @@ const BlogListPage = () => {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <DataTable columns={columns} data={blogs} />
+        <DataTable columns={columns({
+          handleDelete,
+          handleTogglePublish
+        })} data={blogs} />
       </CardContent>
     </Card>
   );

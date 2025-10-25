@@ -3,37 +3,38 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner";
 import {
+   AlertDialog,
+   AlertDialogAction,
+   AlertDialogCancel,
+   AlertDialogContent,
+   AlertDialogDescription,
+   AlertDialogFooter,
+   AlertDialogHeader,
+   AlertDialogTitle,
+   AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import {
    DropdownMenu,
    DropdownMenuContent,
    DropdownMenuItem,
-   DropdownMenuLabel,
    DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import Image from "next/image";
 import { IBlog } from "@/models/Blog";
 import { ArrowUpDown, MoreHorizontal } from "lucide-react";
-const handleDelete = async (id: string) => {
-   if (!id) return;
-   try {
-      const response = await fetch(`/api/blogs/${id}`, {
-         method: "DELETE",
-      });
-      const data = await response.json();
-      if (data.success) {
-         toast.success("Blog deleted successfully");
-         // make the refresh of the table or remove the deleted row from the UI
-         window.location.reload();
-         // Optionally, you can add logic to refresh the table or remove the deleted row from the UI
-      } else {
-         toast.error("Failed to delete blog: " + data.message);
-      }
-   } catch (error) {
-      console.error("Error deleting blog:", error);
-      toast.error("An error occurred while deleting the blog.");
-   }
-};
+import { useState } from "react";
 
-export const columns: ColumnDef<IBlog>[] = [
+
+interface ColumnsProps {
+   handleDelete: (id: string) => void;
+   handleTogglePublish: (id: string, isPublished: boolean) => void;
+}
+
+export const columns = ({
+   handleDelete,
+   handleTogglePublish
+
+}: ColumnsProps): ColumnDef<IBlog>[] => [
    {
       accessorKey: "image",
       header: "Image",
@@ -104,8 +105,10 @@ export const columns: ColumnDef<IBlog>[] = [
       enableHiding: false,
       cell: ({ row }) => {
          const blog = row.original
+         const [showDeleteDialog, setShowDeleteDialog] = useState(false);
          return (
-            <DropdownMenu>
+            <>
+            <DropdownMenu modal={false}>
                <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="h-8 w-8 p-0">
                      <span className="sr-only">Open menu</span>
@@ -113,14 +116,32 @@ export const columns: ColumnDef<IBlog>[] = [
                   </Button>
                </DropdownMenuTrigger>
                <DropdownMenuContent align="end">
-                  <DropdownMenuLabel>Actions</DropdownMenuLabel>
-                  <DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => handleTogglePublish(blog._id, blog.isPublished)}>
                      {blog.isPublished ? "Unpublish" : "Publish"}
                   </DropdownMenuItem>
                   <DropdownMenuItem>Edit</DropdownMenuItem>
-                  <DropdownMenuItem onClick={() => handleDelete(blog._id)} variant="destructive">Delete</DropdownMenuItem>
+
+                  <DropdownMenuItem variant="destructive" onSelect={() => setShowDeleteDialog(true)}>
+                     Delete
+                  </DropdownMenuItem>
                </DropdownMenuContent>
             </DropdownMenu>
+            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                     <AlertDialogContent>
+                        <AlertDialogHeader>
+                           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                           <AlertDialogDescription>
+                              This action cannot be undone. This will permanently delete your
+                              account and remove your data from our servers.
+                           </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                           <AlertDialogCancel>Cancel</AlertDialogCancel>
+                              <AlertDialogAction onClick={() => handleDelete(blog._id)}>Continue</AlertDialogAction>
+                        </AlertDialogFooter>
+                     </AlertDialogContent>
+               </AlertDialog>
+            </>
          )
       },
    },
