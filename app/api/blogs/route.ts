@@ -2,7 +2,6 @@ import dbConnect from "@/lib/dbConnect";
 import Blog from "@/models/Blog";
 import { uploadImageToImageKit } from "@/lib/imagekit";
 import { NextResponse } from "next/server";
-import { revalidatePath } from "next/cache";
 
 export async function GET() {
   try {
@@ -18,7 +17,7 @@ export async function GET() {
     return NextResponse.json({
       success: false,
       message: "Failed to fetch blogs",
-    });
+    }, { status: 500 });
   }
 }
 
@@ -29,10 +28,17 @@ export async function POST(request: Request) {
 
     // Extract blog data
     const blogDataString = formData.get("blog") as string;
+    if (!blogDataString) {
+      return NextResponse.json(
+        { success: false, message: "Blog data is required" },
+        { status: 400 }
+      );
+    }
+    
     const blogData = JSON.parse(blogDataString);
 
     // Extract image file
-    const imageFile = formData.get("image") as File;
+    const imageFile = formData.get("image") as File | null;
 
     let imageUrl = "";
     let imageId = "";
@@ -57,9 +63,9 @@ export async function POST(request: Request) {
       image: imageUrl,
       imageId: imageId, // Store ImageKit file ID for potential deletion later
     });
-    revalidatePath("/");
     return NextResponse.json(
       {
+        success: true,
         data: newBlog,
         message: "Blog created successfully",
       },
@@ -69,6 +75,7 @@ export async function POST(request: Request) {
     console.error("Error processing POST request:", error);
     return NextResponse.json(
       {
+        success: false,
         message: "Failed to process POST request",
         error: error instanceof Error ? error.message : "Unknown error",
       },

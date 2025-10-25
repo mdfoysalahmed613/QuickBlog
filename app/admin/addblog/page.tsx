@@ -23,6 +23,7 @@ import { Label } from "@/components/ui/label";
 import { z } from "zod";
 import { useState } from "react";
 import { Spinner } from "@/components/ui/spinner";
+import { TiptapEditor } from "@/components/ui/tip-tap";
 
 const AddBlogPage = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -135,11 +136,10 @@ const AddBlogPage = () => {
               render={({ field, fieldState }) => (
                 <Field data-invalid={fieldState.invalid}>
                   <FieldLabel htmlFor="description">Description</FieldLabel>
-                  <Textarea
-                    id="description"
-                    {...field}
+                  <TiptapEditor
+                    value={field.value}
+                    onChange={field.onChange}
                     placeholder="Type here"
-                    required
                     aria-invalid={fieldState.invalid}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
