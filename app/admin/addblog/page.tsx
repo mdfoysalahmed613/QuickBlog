@@ -72,7 +72,7 @@ const AddBlogPage = () => {
   };
 
   return (
-    <Card>
+    <Card className="my-8 shadow-xl">
       <CardHeader>
         <CardTitle>Add New Blog</CardTitle>
         <CardDescription>Fill the form to add a new blog</CardDescription>
