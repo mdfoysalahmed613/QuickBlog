@@ -1,7 +1,4 @@
 import { IBlog } from "@/models/Blog";
-import { error } from "console";
-import { is } from "zod/v4/locales";
-
 export const getAllBlogs = async () => {
   const response = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/blogs`);
   if (!response.ok) {

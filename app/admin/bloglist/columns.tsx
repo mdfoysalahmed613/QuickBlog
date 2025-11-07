@@ -1,7 +1,6 @@
 import { ColumnDef } from "@tanstack/react-table"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { toast } from "sonner";
 import {
    AlertDialog,
    AlertDialogAction,
@@ -11,7 +10,6 @@ import {
    AlertDialogFooter,
    AlertDialogHeader,
    AlertDialogTitle,
-   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog"
 import {
    DropdownMenu,
@@ -104,29 +102,30 @@ export const columns = ({
       id: "actions",
       enableHiding: false,
       cell: ({ row }) => {
-         const blog = row.original
-         const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-         return (
-            <>
-            <DropdownMenu modal={false}>
-               <DropdownMenuTrigger asChild>
-                  <Button variant="ghost" className="h-8 w-8 p-0">
-                     <span className="sr-only">Open menu</span>
-                     <MoreHorizontal />
-                  </Button>
-               </DropdownMenuTrigger>
-               <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => handleTogglePublish(blog._id, blog.isPublished)}>
-                     {blog.isPublished ? "Unpublish" : "Publish"}
-                  </DropdownMenuItem>
-                  <DropdownMenuItem>Edit</DropdownMenuItem>
+         const actionCell = () => {
+            const blog = row.original
+            const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+            return (
+               <>
+                  <DropdownMenu modal={false}>
+                     <DropdownMenuTrigger asChild>
+                        <Button variant="ghost" className="h-8 w-8 p-0">
+                           <span className="sr-only">Open menu</span>
+                           <MoreHorizontal />
+                        </Button>
+                     </DropdownMenuTrigger>
+                     <DropdownMenuContent align="end">
+                        <DropdownMenuItem onClick={() => handleTogglePublish(blog._id, blog.isPublished)}>
+                           {blog.isPublished ? "Unpublish" : "Publish"}
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>Edit</DropdownMenuItem>
 
-                  <DropdownMenuItem variant="destructive" onSelect={() => setShowDeleteDialog(true)}>
-                     Delete
-                  </DropdownMenuItem>
-               </DropdownMenuContent>
-            </DropdownMenu>
-            <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
+                        <DropdownMenuItem variant="destructive" onSelect={() => setShowDeleteDialog(true)}>
+                           Delete
+                        </DropdownMenuItem>
+                     </DropdownMenuContent>
+                  </DropdownMenu>
+                  <AlertDialog open={showDeleteDialog} onOpenChange={setShowDeleteDialog}>
                      <AlertDialogContent>
                         <AlertDialogHeader>
                            <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
@@ -137,12 +136,14 @@ export const columns = ({
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                              <AlertDialogAction onClick={() => handleDelete(blog._id)}>Continue</AlertDialogAction>
+                           <AlertDialogAction onClick={() => handleDelete(blog._id)}></AlertDialogAction>
                         </AlertDialogFooter>
                      </AlertDialogContent>
-               </AlertDialog>
-            </>
-         )
+                  </AlertDialog>
+               </>
+            )
+         }
+         return actionCell()
       },
    },
 ]
