@@ -1,4 +1,4 @@
-import React from 'react'
+
 import { Badge } from '../ui/badge'
 import Image from 'next/image'
 import { IBlog } from '@/models/Blog'

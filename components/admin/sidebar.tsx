@@ -40,7 +40,7 @@ const AdminSideBar = () => {
    const pathName = usePathname()
    return (
       <Sidebar>
-         <SidebarHeader>
+         <SidebarHeader className="py-4">
             <SidebarMenu>
                <SidebarMenuItem>
                   <Link href={"/"} className="flex gap-2 justify-center items-center cursor-pointer">
@@ -55,12 +55,12 @@ const AdminSideBar = () => {
                </SidebarMenuItem>
             </SidebarMenu>
          </SidebarHeader>
-         <SidebarContent>
-            <SidebarMenu>
+         <SidebarContent className="py-4">
+            <SidebarMenu >
                {items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                      <SidebarMenuButton size='lg' asChild isActive={pathName === `/${item.url}`}>
-                        <Link href={`/${item.url}`} className="flex items-center gap-2">
+                        <Link href={`/${item.url}`} className="flex items-center gap-2 pl-6">
                            <item.icon />
                            <span className="text-lg">{item.title}</span>
                         </Link>

@@ -6,6 +6,7 @@ import { Providers } from "@/components/providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
+  weight: ["300","400","500", "600", "700", "800"],
   subsets: ["latin"],
 });
 

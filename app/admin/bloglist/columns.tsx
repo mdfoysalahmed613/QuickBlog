@@ -136,7 +136,7 @@ export const columns = ({
                         </AlertDialogHeader>
                         <AlertDialogFooter>
                            <AlertDialogCancel>Cancel</AlertDialogCancel>
-                           <AlertDialogAction onClick={() => handleDelete(blog._id)}></AlertDialogAction>
+                           <AlertDialogAction onClick={() => handleDelete(blog._id)}>Continue</AlertDialogAction>
                         </AlertDialogFooter>
                      </AlertDialogContent>
                   </AlertDialog>
