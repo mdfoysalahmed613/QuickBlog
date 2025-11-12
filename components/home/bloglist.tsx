@@ -31,8 +31,8 @@ const BlogList = () => {
 
   return (
     <div>
-      <div className='flex gap-4 justify-between mb-4'>
-        <DropdownMenu>
+      <div className='flex w-full gap-4 mb-4'>
+        <DropdownMenu >
           <DropdownMenuTrigger asChild>
             <Button variant="outline" aria-label="Filter Blogs">
               <SlidersHorizontal />
@@ -51,20 +51,12 @@ const BlogList = () => {
           </DropdownMenuContent>
         </DropdownMenu>
 
-        <ButtonGroup className='w-96'>
+        <ButtonGroup className='w-96 mx-auto'>
           <Input placeholder="Search..." value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
           <Button variant="outline" aria-label="Search">
             <SearchIcon />
           </Button>
         </ButtonGroup>
-        <div className='flex gap-2'>
-          <Button variant={"outline"} disabled>
-            Previous
-          </Button>
-          <Button variant={"outline"} disabled>
-            Next
-          </Button>
-        </div>
       </div>
 
       {isPending ? (

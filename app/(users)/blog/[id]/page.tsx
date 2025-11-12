@@ -92,8 +92,8 @@ const BlogDetails = async ({ params }: { params: Promise<{ id: string }> }) => {
       </header>
 
       {/* Content Section */}
-      <section className="container mx-auto px-4 pb-16 max-w-4xl">
-        <div className="bg-card rounded-xl shadow-lg p-8 md:p-12 ring-1 ring-border">
+      <section className="mx-auto px-4 pb-16 max-w-4xl">
+        <div className="p-2 md:p-4">
           <div
             className="prose prose-lg prose-slate dark:prose-invert max-w-none
               prose-headings:font-bold prose-headings:tracking-tight
