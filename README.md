@@ -23,13 +23,13 @@ This project showcases my ability to develop a full-stack application, handle us
 
 This project was built using a **NextJs Full Stack Web App**
 
-| Category | Technology | Version (Optional) | Description |
-| :--- | :--- | :--- | :--- |
+| Category | Technology | Description |
+| :--- | :--- | :--- |
 | **Frontend** | [NextJs/Typescript/Tanstack/React Form Hook/Clerk] | Modern UI library for building the user interface. |
 | **Styling** | [Tailwind CSS/Shadcn UI] | Utility-first CSS framework for rapid styling. |
-| **Backend** | [Node.js/Express/Typescript] | Runtime environment/framework for the server-side logic. |
-| **Database** | [MongoDB/Mongoose] | Persistent data storage for posts, users, etc. |
-| **Deployment** | [Vercel] | Hosting platform for the live application. |
+| **Backend** | Node.js/Express/Typescript | Runtime environment/framework for the server-side logic. |
+| **Database** | MongoDB/Mongoose | Persistent data storage for posts, users, etc. |
+| **Deployment** | Vercel | Hosting platform for the live application. |
 
 ## 🚀 Getting Started (Local Setup)
 
@@ -50,7 +50,7 @@ You need the following installed:
     cd quickblog
     ```
 
-2.  **Install dependencies (Frontend & Backend):**
+2.  **Install dependencies:**
     ```bash
     pnpm install
     ```
@@ -76,7 +76,7 @@ You need the following installed:
 | :---: |
 | [![GitHub Badge](https://img.shields.io/badge/-GitHub-100000?style=flat-square&logo=github&logoColor=white)]([https://github.com/mdfoysalahmed613]) |
 | [![LinkedIn Badge](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)]([https://www.linkedin.com/in/foysal-ahmed-b86699259]) |
-| **Portfolio:** [foysal.me] |
+| **Portfolio:** [https://foysal.me] |
 
 <!-- ## 🙏 Acknowledgements -->
 
