@@ -33,12 +33,11 @@ const NavBar = () => {
             </SignedOut>
             <SignedIn>
                <div className="flex gap-3 items-center">
-                  <Button variant="outline" className="mr-2">
+                  <Button variant="outline" className="mr-2" asChild>
                      <Link href={"/admin"}>Admin</Link>
                   </Button>
                   <UserButton />
                </div>
-               
             </SignedIn>
          </div>
       </div>

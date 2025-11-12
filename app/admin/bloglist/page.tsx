@@ -60,7 +60,7 @@ const BlogListPage = () => {
   }
 
   return (
-    <Card className="my-8 shadow-xl">
+    <Card className="my-8 shadow-xl bg-secondary/40">
       <CardHeader>
         <CardTitle>Blog List</CardTitle>
         <CardDescription>

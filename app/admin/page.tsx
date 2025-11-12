@@ -1,8 +1,9 @@
-import React from 'react'
 
 const page = () => {
   return (
-    <div>Admin Page</div>
+    <div className='my-8 mx-auto text-2xl font-semibold'>
+      Comming Soon...
+    </div>
   )
 }
 

@@ -27,7 +27,7 @@ export default function FileUpload(props: FileUploadOptions) {
   const previewUrl = files[0]?.preview || null
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className="flex flex-col gap-2 bg-card">
       <div className="relative">
         {/* Drop area */}
         <div

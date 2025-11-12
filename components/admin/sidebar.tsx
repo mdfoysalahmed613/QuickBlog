@@ -30,11 +30,6 @@ const items = [
       url: "admin/bloglist",
       icon: ClipboardList,
    },
-   {
-      title: "Comments",
-      url: "admin/comments",
-      icon: MessageCircleMore,
-   },
 ]
 const AdminSideBar = () => {
    const pathName = usePathname()

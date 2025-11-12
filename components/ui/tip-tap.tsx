@@ -29,7 +29,7 @@ interface TiptapEditorProps {
 export function TiptapEditor({
    value,
    onChange,
-   placeholder = 'Type here...',
+   placeholder = 'Type here',
    className,
 }: TiptapEditorProps) {
    const editor = useEditor({

@@ -71,7 +71,7 @@ const AddBlogPage = () => {
   };
 
   return (
-    <Card className="my-8 shadow-xl">
+    <Card className="my-8 shadow-xl bg-secondary/40">
       <CardHeader>
         <CardTitle>Add New Blog</CardTitle>
         <CardDescription>Fill the form to add a new blog</CardDescription>
@@ -106,6 +106,7 @@ const AddBlogPage = () => {
                     {...field}
                     placeholder="Type here"
                     required
+                    className="bg-background"
                     aria-invalid={fieldState.invalid}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -138,7 +139,6 @@ const AddBlogPage = () => {
                   <TiptapEditor
                     value={field.value}
                     onChange={field.onChange}
-                    placeholder="Type here"
                     aria-invalid={fieldState.invalid}
                   />
                   {fieldState.invalid && <FieldError errors={[fieldState.error]} />}
@@ -156,7 +156,7 @@ const AddBlogPage = () => {
                     onValueChange={field.onChange}
                     aria-invalid={fieldState.invalid}
                   >
-                    <SelectTrigger className="w-[180px]">
+                    <SelectTrigger className="w-[180px] bg-background">
                       <SelectValue placeholder="Select a Category" />
                     </SelectTrigger>
                     <SelectContent>

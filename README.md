@@ -13,7 +13,6 @@ This project showcases my ability to develop a full-stack application, handle us
 * **User Authentication:** Custom Clerk authentication flow.
 * **Post Management (CRUD):** Complete functionality to Create, Read, Update, and Delete blog posts.
 * **Rich Text Editor:** Utilize a feature-rich editor (Tip Tap) for formatting posts.
-* **Markdown Support (Optional):** *(If applicable, otherwise remove)*
 * **Image Upload:** Ability to upload and store images associated with posts using Imagekit.
 * **Responsive Design:** Optimized viewing experience across all devices (desktop, tablet, mobile).
 * **Search & Filtering:** I used TanStack Query for data fetching and using modern search and filtering options.
@@ -34,13 +33,6 @@ This project was built using a **NextJs Full Stack Web App**
 ## 🚀 Getting Started (Local Setup)
 
 Follow these steps to set up and run the QuickBlog application on your local machine.
-
-### Prerequisites
-
-You need the following installed:
-
-* [Node.js](https://nodejs.org/) (version 18+)
-* [Git](https://git-scm.com/)
 
 ### Installation
 
