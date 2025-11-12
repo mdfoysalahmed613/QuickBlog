@@ -1,36 +1,85 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# QuickBlog
 
-## Getting Started
+> **Live Demo:** [quickblog.foysal.me](https://quickblog.foysal.me)
 
-First, run the development server:
+## 📝 Description
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+QuickBlog is a fully functional, modern blog application. It allows users (administrators) to create, manage, and publish posts with a rich-text editor, while providing a clean and responsive interface for readers.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+This project showcases my ability to develop a full-stack application, handle user authentication, manage a persistent database, and implement a scalable, component-based frontend architecture.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Key Features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+* **User Authentication:** Custom Clerk authentication flow.
+* **Post Management (CRUD):** Complete functionality to Create, Read, Update, and Delete blog posts.
+* **Rich Text Editor:** Utilize a feature-rich editor (Tip Tap) for formatting posts.
+* **Markdown Support (Optional):** *(If applicable, otherwise remove)*
+* **Image Upload:** Ability to upload and store images associated with posts using Imagekit.
+* **Responsive Design:** Optimized viewing experience across all devices (desktop, tablet, mobile).
+* **Search & Filtering:** I used TanStack Query for data fetching and using modern search and filtering options.
+* **Category/Tag Support:** Organize posts with categories.
 
-## Learn More
+## 💻 Technologies Used
 
-To learn more about Next.js, take a look at the following resources:
+This project was built using a **NextJs Full Stack Web App**
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Category | Technology | Version (Optional) | Description |
+| :--- | :--- | :--- | :--- |
+| **Frontend** | [NextJs/Typescript/Tanstack/React Form Hook/Clerk] | Modern UI library for building the user interface. |
+| **Styling** | [Tailwind CSS/Shadcn UI] | Utility-first CSS framework for rapid styling. |
+| **Backend** | [Node.js/Express/Typescript] | Runtime environment/framework for the server-side logic. |
+| **Database** | [MongoDB/Mongoose] | Persistent data storage for posts, users, etc. |
+| **Deployment** | [Vercel] | Hosting platform for the live application. |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 🚀 Getting Started (Local Setup)
 
-## Deploy on Vercel
+Follow these steps to set up and run the QuickBlog application on your local machine.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Prerequisites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+You need the following installed:
+
+* [Node.js](https://nodejs.org/) (version 18+)
+* [Git](https://git-scm.com/)
+
+### Installation
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/mdfoysalahmed613/QuickBlog.git
+    cd quickblog
+    ```
+
+2.  **Install dependencies (Frontend & Backend):**
+    ```bash
+    pnpm install
+    ```
+
+<!-- 3.  **Configure Environment Variables:**
+    Create a file named `.env` in the root of the server directory and add your configuration:
+    ```
+    # Example .env file
+    PORT=5000
+    MONGODB_URI=[YOUR_MONGODB_CONNECTION_STRING]
+    JWT_SECRET=[A_LONG_RANDOM_STRING_FOR_SECURITY]
+    ``` -->
+
+4.  **Run the application:**
+    ```bash
+    pnpm dev
+    ```
+    The application should now be running at `http://localhost:3000`.
+
+## 🧑‍💻 Author
+
+| **Foysal** |
+| :---: |
+| [![GitHub Badge](https://img.shields.io/badge/-GitHub-100000?style=flat-square&logo=github&logoColor=white)]([https://github.com/mdfoysalahmed613]) |
+| [![LinkedIn Badge](https://img.shields.io/badge/-LinkedIn-0077B5?style=flat-square&logo=linkedin&logoColor=white)]([https://www.linkedin.com/in/foysal-ahmed-b86699259]) |
+| **Portfolio:** [foysal.me] |
+
+<!-- ## 🙏 Acknowledgements -->
+
+<!-- * [e.g., Font Awesome](https://fontawesome.com/) for icons.
+* [e.g., Axios](https://axios-http.com/) for API requests.
+* *(Any tutorials, libraries, or resources that provided significant help)* -->

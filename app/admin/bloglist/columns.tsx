@@ -19,7 +19,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import Image from "next/image";
 import { IBlog } from "@/models/Blog";
-import { ArrowUpDown, MoreHorizontal } from "lucide-react";
+import { ArrowUpDown, BookmarkMinus, BookmarkPlus, MoreHorizontal, SquarePen, Trash2 } from "lucide-react";
 import { useState } from "react";
 
 
@@ -116,11 +116,12 @@ export const columns = ({
                      </DropdownMenuTrigger>
                      <DropdownMenuContent align="end">
                         <DropdownMenuItem onClick={() => handleTogglePublish(blog._id, blog.isPublished)}>
-                           {blog.isPublished ? "Unpublish" : "Publish"}
+                           {blog.isPublished ? <div className="flex gap-1 items-center"><BookmarkMinus />Unpublish</div> : <div className="flex gap-1 items-center"><BookmarkPlus />Publish</div> }
                         </DropdownMenuItem>
-                        <DropdownMenuItem>Edit</DropdownMenuItem>
+                        <DropdownMenuItem><SquarePen /> Edit</DropdownMenuItem>
 
                         <DropdownMenuItem variant="destructive" onSelect={() => setShowDeleteDialog(true)}>
+                           <Trash2 />
                            Delete
                         </DropdownMenuItem>
                      </DropdownMenuContent>
