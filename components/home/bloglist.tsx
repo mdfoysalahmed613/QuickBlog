@@ -12,11 +12,12 @@ import { useState } from 'react'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from '@radix-ui/react-dropdown-menu'
 import { DropdownMenuLabel, DropdownMenuRadioGroup, DropdownMenuRadioItem, DropdownMenuSeparator } from '../ui/dropdown-menu'
 import { Spinner } from '../ui/spinner'
+import BloglistSkeleton from './bloglist-skeleton'
 
 const BlogList = () => {
   const [searchQuery, setSearchQuery] = useState('')
   const [categoryFilter, setCategoryFilter] = useState("All")
-  const { data, isPending, error, isError } = useQuery({
+  const { data, isPending, isError } = useQuery({
     queryKey: ['blogs'],
     queryFn: getAllBlogs,
   })
@@ -27,11 +28,7 @@ const BlogList = () => {
     const isPublished = blog.isPublished === true
     return matchesSearch && matchesCategory && isPublished
   })
-  if (isPending) {
-    return <Spinner />
-  } if (isError) {
-    return <div>Error loading blogs</div>
-  }
+
   return (
     <div>
       <div className='flex gap-4 justify-between mb-4'>
@@ -69,18 +66,25 @@ const BlogList = () => {
           </Button>
         </div>
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 py-2 ">
-        {filteredData?.map((blog: IBlog) => (
-          <Link href={`/blog/${blog._id}`} key={blog._id}>
-            <BlogCard {...blog} />
-          </Link>
-        ))}
-        {
-          filteredData && filteredData.length === 0 && (
-            <p className="text-center col-span-full">No blogs found.</p>
-          )
-        }
-      </div>
+
+      {isPending ? (
+        <BloglistSkeleton />
+      ) : isError ? (
+        <div className="text-center py-20">Error loading blogs</div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8 py-2 ">
+          {filteredData?.map((blog: IBlog) => (
+            <Link href={`/blog/${blog._id}`} key={blog._id}>
+              <BlogCard {...blog} />
+            </Link>
+          ))}
+          {
+            filteredData && filteredData.length === 0 && (
+              <p className="text-center col-span-full">No blogs found.</p>
+            )
+          }
+        </div>
+      )}
     </div>
 
   )
